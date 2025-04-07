@@ -93,7 +93,8 @@ if os.path.exists(INVOICE_FILE):
     df['datetime'] = pd.to_datetime(df['datetime'], errors='coerce')
 else:
     df = pd.DataFrame(columns=['company', 'amount', 'datetime', 'entered_by'])
-import altair as alt
+
+st.write("Actual columns in your data:", df.columns.tolist())
 
 # Ensure datetime and no missing values
 df['month_year'] = pd.to_datetime(df['month_year'], errors='coerce')
