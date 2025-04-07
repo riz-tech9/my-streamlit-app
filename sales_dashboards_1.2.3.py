@@ -5,6 +5,11 @@ from datetime import datetime, date, timedelta
 import os
 import json
 
+line_chart = alt.Chart(df).mark_line().encode(
+    x='month_year:T',
+    y='revenue:Q'
+)
+
 # === CONFIG ===
 st.set_page_config(page_title="📈 Sales Forecasting Dashboard", layout="wide")
 
