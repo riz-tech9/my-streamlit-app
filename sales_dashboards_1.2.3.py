@@ -5,11 +5,6 @@ from datetime import datetime, date, timedelta
 import os
 import json
 
-line_chart = alt.Chart(df).mark_line().encode(
-    x='month_year:T',
-    y='revenue:Q'
-)
-
 # === CONFIG ===
 st.set_page_config(page_title="📈 Sales Forecasting Dashboard", layout="wide")
 
@@ -98,6 +93,10 @@ if os.path.exists(INVOICE_FILE):
     df['datetime'] = pd.to_datetime(df['datetime'], errors='coerce')
 else:
     df = pd.DataFrame(columns=['company', 'amount', 'datetime', 'entered_by'])
+line_chart = alt.Chart(df).mark_line().encode(
+    x='month_year:T',
+    y='revenue:Q'
+)
 df['datetime'] = pd.to_datetime(df['datetime'], errors='coerce')
 df['date'] = df['datetime'].dt.date
 df['date'] = df['datetime'].dt.date
