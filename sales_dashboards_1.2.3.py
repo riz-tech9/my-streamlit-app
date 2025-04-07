@@ -193,6 +193,9 @@ with col2:
 # === REVENUE OVER TIME ===
 st.markdown("### 📊 Revenue Over Time & Monthly Breakdown")
 col1, col2 = st.columns(2)
+st.write("Line chart data preview:")
+st.write(df.head())
+st.write(df.dtypes)
 
 with col1:
     line_data = df_filtered.groupby(df_filtered['datetime'].dt.to_period("M")).sum(numeric_only=True).reset_index()
