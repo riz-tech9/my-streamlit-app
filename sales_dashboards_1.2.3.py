@@ -93,10 +93,23 @@ if os.path.exists(INVOICE_FILE):
     df['datetime'] = pd.to_datetime(df['datetime'], errors='coerce')
 else:
     df = pd.DataFrame(columns=['company', 'amount', 'datetime', 'entered_by'])
-line_chart = alt.Chart(df).mark_line().encode(
-    x='month_year:T',
-    y='revenue:Q'
+import altair as alt
+
+# Ensure datetime and no missing values
+df['month_year'] = pd.to_datetime(df['month_year'], errors='coerce')
+df = df.dropna(subset=['month_year', 'revenue'])
+
+# Create chart safely
+line_chart = alt.Chart(df).mark_line(point=True).encode(
+    x=alt.X('month_year:T', title='Month-Year'),
+    y=alt.Y('revenue:Q', title='Revenue')
+).properties(
+    title='Revenue Over Time',
+    width='container'
 )
+
+st.altair_chart(line_chart, use_container_width=True)
+
 df['datetime'] = pd.to_datetime(df['datetime'], errors='coerce')
 df['date'] = df['datetime'].dt.date
 df['date'] = df['datetime'].dt.date
