@@ -5,6 +5,9 @@ from datetime import datetime, date, timedelta
 import os
 import json
 
+df['datetime'] = pd.to_datetime(df['datetime'], errors='coerce')
+df['date'] = df['datetime'].dt.date
+
 # === CONFIG ===
 st.set_page_config(page_title="📈 Sales Forecasting Dashboard", layout="wide")
 
